@@ -1,0 +1,79 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    position: static;
+    font-family: 'Quattrocento Sans', sans-serif;    
+    max-width: 100%;
+    height: auto;
+    background-color: white;
+}
+a {
+    color: #e57373;
+    text-decoration: none;
+}
+#landing {
+    height: 100vh;
+    background-image: url('../images/couplesonbeach.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    z-index: -1;
+   
+}
+
+.start-button {
+    text-align: center;
+}
+#mainText, p, 
+#about-info {
+    text-align: center;
+    font-size: 20px;
+    font-family: 'Quattrocento Sans', sans-serif;
+    
+}
+footer {
+    background-color: white;
+    position: fixed;
+    clear: both;
+    text-align: center;
+    height: 50px;
+    bottom: 0;
+    width: 100%;
+   
+}
+footer.a {
+    color: black;
+}
+.cute-header {
+    color: white;
+    font-size: 40px;
+    text-align: center;
+    padding: 0px;
+    color: black;
+}
+#about {
+    text-align: center;
+    height: 100vh;
+    z-index: -1;
+    color: black;
+}
+#survey {
+    background-color: white;
+    padding-top: 40px;
+    padding: 30px 30px;
+}
+
+.survey-title {
+    /* font-family: 'Fredericka the Great', cursive; */
+    font-family: 'Quattrocento Sans', sans-serif;
+    color: white;
+    text-align: center;
+}
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+   
+}
