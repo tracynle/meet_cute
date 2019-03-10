@@ -12,7 +12,7 @@ a {
     color: #e57373;
     text-decoration: none;
 }
-#landing {
+#home {
     height: 100vh;
     background-image: url('../images/couplesonbeach.jpg');
     background-position: center;
@@ -23,8 +23,13 @@ a {
    
 }
 
-.start-button {
+.button {
     text-align: center;
+    padding-bottom: 40px;
+}
+
+form {
+    padding-bottom: 60px;
 }
 #mainText, p, 
 #about-info {
@@ -76,4 +81,9 @@ img {
     margin-left: auto;
     margin-right: auto;
    
+}
+
+#form-text {
+    font-size: 18px;
+    color: black;
 }

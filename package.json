@@ -16,5 +16,14 @@
   "bugs": {
     "url": "https://github.com/tracynle/meet_cute/issues"
   },
-  "homepage": "https://github.com/tracynle/meet_cute#readme"
+  "homepage": "https://github.com/tracynle/meet_cute#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "node": "^10.15.2",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {},
+  "keywords": [
+    "assignment"
+  ]
 }
