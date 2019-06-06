@@ -1,21 +1,49 @@
-var express = require('express');
-var router = express.Router();
+// var express = require('express');
+// var router = express.Router();
+// var path = require("path");
+
+// router.get("/", function(req, res) {
+//     res.sendFile(path.join(__dirname, "../public/home.html"));
+// });
+
+// router.get("/home", function(req, res) {
+//     res.sendFile(path.join(__dirname, "../public/home.html"));
+// });
+
+// router.get("/survey", function(req, res) {
+//     res.sendFile(path.join(__dirname, "../public/survey.html"));
+// });
+
+// router.get("/about", function(req,res) {
+//     res.sendFile(path.join(__dirname, "../public/about.html"));
+// });
+
+// module.exports = router
+
+// ===============================================================================
+// DEPENDENCIES
+// We need to include the path package to get the correct file path for our html
+// ===============================================================================
 var path = require("path");
 
-router.get("/", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/home.html"));
-});
+// ===============================================================================
+// ROUTING
+// ===============================================================================
 
-router.get("/home", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/home.html"));
-});
+module.exports = function(app) {
 
-router.get("/survey", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/survey.html"));
-});
+  // HTML GET Requests
+  // Below code handles when users "visit" a page.
+  // In each of the below cases the user is shown an HTML page of content
+  // ---------------------------------------------------------------------------
 
-router.get("/about", function(req,res) {
-    res.sendFile(path.join(__dirname, "../public/about.html"));
-});
+  app.get("/survey", function(req, res) {
+    res.sendFile(path.join(__dirname, "/../public/survey.html"));
+  });
 
-module.exports = router
+  // If no matching route is found default to home
+  app.get("*", function(req, res) {
+    res.sendFile(path.join(__dirname, "/../public/home.html"));
+  });
+
+};
