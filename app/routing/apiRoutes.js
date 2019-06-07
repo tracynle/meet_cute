@@ -1,94 +1,172 @@
-// // A GET route with the url /api/friends. This will be used to display a JSON of all possible friends.
-// // A POST routes /api/friends. This will be used to handle incoming survey results. This route will also be used to handle the compatibility logic.
+// ===============================================================================
+// LOAD DATA
+// We are linking our routes to a series of "data" sources.
+// These data sources hold arrays of information on all possible friends
+// ===============================================================================
 
-// var express = require('express');
-// var router = express.Router();
-// var path = require("path");
-
-
-// var friends = [
-//     {
-//     name: "Amy",
-//     photo: "abc.jpg",
-//     scores: [ 5, 2, 3, 3, 1, 2, 3, 4, 5, 1]
-// },
-// {
-//     name: "John",
-//     photo: "abc.jpg",
-//     scores: [ 4, 3, 1, 2, 1, 5, 2, 1, 1, 2]
-// }]
-
-// router.get("/api/friends", function(req, res){
-//     res.json(friends);
-// });
-
-// // Survey data is passed in from the form using .post
-// router.post("/api/friends", function(req, res) {
-//     //res.json(friends[]);
-//     console.log('req');
-//     console.log(req.body);
-
-//     var surveyScores = [ 
-//         req.body.Q1,
-//         req.body.Q2,
-//         req.body.Q3,
-//         req.body.Q4,
-//         req.body.Q5,
-//         req.body.Q6,
-//         req.body.Q7,
-//         req.body.Q8,
-//         req.body.Q9,
-//         req.body.Q10
-//     ];
-    
-//     var bestMatch;
-//     var lowestSum = 1000000;
-
-//     for (var i = 0; i < friends.length; i++) {
-//         var friend = friends[i];
-//         var friendScores = friend.scores;
-//         var sum = 0;
-
-//         for (var j = 0; j < surveyScores.length; j++) {
-//             var newSurveyScore = parseInt(surveyScores[j]);
-//             var friendScore = friendScores[j];
-//             var difference = Math.abs(newSurveyScore - friendScore);
-//             sum = sum + difference;
-//         };
-
-//         if (sum < lowestSum) {
-//             lowestSum = sum;
-//             bestMatch = friend;
-//         }
-//     };
-
-//     res.json(bestMatch);
-
-// });
-
-// module.exports = router;
-
-var path = require("path");
 var friends = require("../data/friends");
 
+// ===============================================================================
+// ROUTING
+// ===============================================================================
+
 module.exports = function(app) {
-// 4. Your `apiRoutes.js` file should contain two routes:
+  // API GET Requests
+  // Below code handles when users "visit" a page.
+  // In each of the below cases when a user visits a link
+  // (ex: localhost:PORT/api/admin... they are shown a JSON of the data in the table)
+  // ---------------------------------------------------------------------------
 
-//    * A GET route with the url `/api/friends`. This will be used to display a JSON of all possible friends.
-app.get("/api/friends", function(req, res) {
-    return res.json(friends);
-});
-  
-//    * A POST routes `/api/friends`. This will be used to handle incoming survey results. This route will also be used to handle the compatibility logic.
-app.post("/api/friends", function(req, res){
-    var newFriend = req.body;
+  app.get("/api/friends", function(req, res) {
+    res.json(friends);
+  });
 
-    newFriend.routeName = newFriend.name.replace(/\s+/g, "").toLowerCase();
+  // API POST Requests
+  // Below code handles when a user submits a form and thus submits data to the server.
+  // In each of the below cases, when a user submits form data (a JSON object)
+  // ...the JSON is pushed to the appropriate JavaScript array
+  // ---------------------------------------------------------------------------
 
-    console.log(newFriend);
+  app.post("/api/friends", function(req, res) {
+    // Note the code here. Our "server" will respond to a user"s survey result
+    // Then compare those results against every user in the database.
+    // It will then calculate the difference between each of the numbers and the user"s numbers.
+    // It will then choose the user with the least differences as the "best friend match."
+    // In the case of multiple users with the same result it will choose the first match.
+    // After the test, it will push the user to the database.
 
-    friends.push(newFriend);
+    // We will use this object to hold the "best match". We will constantly update it as we
+    // loop through all of the options
+    var bestMatch = {
+      name: "",
+      photo: "",
+      friendDifference: Infinity
+    };
 
-    res.json(newFriend);
-});
+    // Here we take the result of the user"s survey POST and parse it.
+    var userData = req.body;
+    var userScores = userData.scores;
+
+    // This variable will calculate the difference between the user"s scores and the scores of
+    // each user in the database
+    var totalDifference;
+
+    // Here we loop through all the friend possibilities in the database.
+    for (var i = 0; i < friends.length; i++) {
+      var currentFriend = friends[i];
+      totalDifference = 0;
+
+      console.log(currentFriend.name);
+
+      // We then loop through all the scores of each friend
+      for (var j = 0; j < currentFriend.scores.length; j++) {
+        var currentFriendScore = currentFriend.scores[j];
+        var currentUserScore = userScores[j];
+
+        // We calculate the difference between the scores and sum them into the totalDifference
+        totalDifference += Math.abs(parseInt(currentUserScore) - parseInt(currentFriendScore));
+      }
+
+      // If the sum of differences is less then the differences of the current "best match"
+      if (totalDifference <= bestMatch.friendDifference) {
+        // Reset the bestMatch to be the new friend.
+        bestMatch.name = currentFriend.name;
+        bestMatch.photo = currentFriend.photo;
+        bestMatch.friendDifference = totalDifference;
+      }
+    }
+
+    // Finally save the user's data to the database (this has to happen AFTER the check. otherwise,
+    // the database will always return that the user is the user's best friend).
+    friends.push(userData);
+
+    // Return a JSON with the user's bestMatch. This will be used by the HTML in the next page
+    res.json(bestMatch);
+  });
+};
+// ===============================================================================
+// LOAD DATA
+// We are linking our routes to a series of "data" sources.
+// These data sources hold arrays of information on all possible friends
+// ===============================================================================
+
+var friends = require("../data/friends");
+
+// ===============================================================================
+// ROUTING
+// ===============================================================================
+
+module.exports = function(app) {
+  // API GET Requests
+  // Below code handles when users "visit" a page.
+  // In each of the below cases when a user visits a link
+  // (ex: localhost:PORT/api/admin... they are shown a JSON of the data in the table)
+  // ---------------------------------------------------------------------------
+
+  app.get("/api/friends", function(req, res) {
+    res.json(friends);
+  });
+
+  // API POST Requests
+  // Below code handles when a user submits a form and thus submits data to the server.
+  // In each of the below cases, when a user submits form data (a JSON object)
+  // ...the JSON is pushed to the appropriate JavaScript array
+  // ---------------------------------------------------------------------------
+
+  app.post("/api/friends", function(req, res) {
+    // Note the code here. Our "server" will respond to a user"s survey result
+    // Then compare those results against every user in the database.
+    // It will then calculate the difference between each of the numbers and the user"s numbers.
+    // It will then choose the user with the least differences as the "best friend match."
+    // In the case of multiple users with the same result it will choose the first match.
+    // After the test, it will push the user to the database.
+
+    // We will use this object to hold the "best match". We will constantly update it as we
+    // loop through all of the options
+    var bestMatch = {
+      name: "",
+      photo: "",
+      friendDifference: Infinity
+    };
+
+    // Here we take the result of the user"s survey POST and parse it.
+    var userData = req.body;
+    var userScores = userData.scores;
+
+    // This variable will calculate the difference between the user"s scores and the scores of
+    // each user in the database
+    var totalDifference;
+
+    // Here we loop through all the friend possibilities in the database.
+    for (var i = 0; i < friends.length; i++) {
+      var currentFriend = friends[i];
+      totalDifference = 0;
+
+      console.log(currentFriend.name);
+
+      // We then loop through all the scores of each friend
+      for (var j = 0; j < currentFriend.scores.length; j++) {
+        var currentFriendScore = currentFriend.scores[j];
+        var currentUserScore = userScores[j];
+
+        // We calculate the difference between the scores and sum them into the totalDifference
+        totalDifference += Math.abs(parseInt(currentUserScore) - parseInt(currentFriendScore));
+      }
+
+      // If the sum of differences is less then the differences of the current "best match"
+      if (totalDifference <= bestMatch.friendDifference) {
+        // Reset the bestMatch to be the new friend.
+        bestMatch.name = currentFriend.name;
+        bestMatch.photo = currentFriend.photo;
+        bestMatch.friendDifference = totalDifference;
+      }
+    }
+
+    // Finally save the user's data to the database (this has to happen AFTER the check. otherwise,
+    // the database will always return that the user is the user's best friend).
+    friends.push(userData);
+
+    // Return a JSON with the user's bestMatch. This will be used by the HTML in the next page
+    res.json(bestMatch);
+  });
 };

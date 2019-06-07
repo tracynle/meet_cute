@@ -87,7 +87,7 @@ var friends = [
   },
   {
     name: "Jordan Biason",
-    photo: "https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAisAAAAJGUxYzc4YzA0LWQxMzUtNGI4NS04YTFiLTkwYzM0YTZkNzA2NA.jpg",
+    photo: "https://www.pexels.com/photo/woman-wearing-blue-top-2169434/",
     scores: [
       "4",
       "4",

@@ -1,107 +1,47 @@
 <!DOCTYPE html>
-  <html>
-    <head>
-      <!--Import Google Icon Font-->
-      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-      <!--Import materialize.css-->
-      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+<html lang="en">
 
-      <!--Let browser know website is optimized for mobile-->
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-      <!--Stylesheets-->
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-      <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-      <link href="https://fonts.googleapis.com/css?family=Quattrocento+Sans" rel="stylesheet">
-      <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
-      <link rel="stylesheet" href="css/style.css">
-      <title>Meet-Cute : Meet People in a Cute Way</title>
-    </head>
+<head>
+  <meta charset="UTF-8">
+  <title>Meet Cute</title>
 
-    <body>
-        <!--Nav bar-->
-        <div class="navbar-fixed">
-            <nav class="blue-grey lighten-2">
-                <div class="container">
-                    <div class="nav-wrapper">
-                        <a href="#" class="brand-logo">Meet - Cute</a>
-                        <ul id="nav-mobile" class="right hide-on-med-and-down" id="navList">
-                            <li><a href="/">Home</a></li>
-                            <li><a href="/about">About</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </div>
+  <!-- Latest compiled and minified CSS & JS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
-        <!-- Landing Screen -->
-        <div class="section" id="home">
-            <h1 style="color: white;"  class="center">
-                Meet -<b> Cute</b><img src="images/icons8-romance-64.png"></a>
-            </h1>
+  <!-- Font Awesome Glyphicons -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
 
-            <h6 id="mainText" class="center">Make a connection with someone today - in a <i>Meet-Cute</i> kind of way<br>
-            <br>Complete a survey and you will be matched with the greatest compatibility<br>
-            <br>Click the button below to start!<br>
-            <br>
-            <br>
-            <div class="button center-align">
-                <a href="/survey" class="red accent-1 btn-large button">Start</a>
-            </div>
-        </div>
-    
-        <!--About-->
-        <div class="section" id="about">
-            <div class="row" id="about-container">
-                <div class="col s12">
-                    <p class="cute-header">What is Meet-Cute? <img src="images/icons8-romance-64.png"></a></p>
-                    
-                </div>
-            </div>
-            <div class="row" id="about">
-                <div class="container">
-                    <div class="col s5 push">
-                        <span class="flow-text">
-                            <blockquote>
-                                <h4>It is "a cute, charming, or amusing first encounter between romantic partners."</h4>
-                                <cite><a href="https://www.merriam-webster.com/dictionary/meet-cute">by Merriam Webster</a></cite>
-                            </blockquote>
-                        </span>
-                    </div>
-                    <div class="col s7 pull">
-                        <span class="flow-text">
-                            <div class="about-info">
-                                <p>At Meet-Cute, we believe that getting matched based on compatibility is an important factor to finding that perfect match. 
-                                Dating doesn't have to be so hard! We will do the work for you! Ready to find that special person? 
-                                Take our <a href="survey.html">survey</a> and answer a few questions. 
-                                You will get matched and soon enough, you'll <i>meet-cute!</i>
-                                </p>
-                            </div>
-                        </span>
-                    </div>
-                </div> 
-            </div>
-        </div>
+</head>
 
-        <!--Footer Section-->
-        <footer class="footer">
-            <div class="container">
-                <p>
-                    <a href="/api/friends">API Friends List </a>
-                    |
-                    <a href="https://github.com/tracynle/meet_cute">GitHub Repo </a>
-                </p>
-            </div>
-        </footer>
- 
-      <!--JavaScript at end of body for optimized loading-->
-      <script type="text/javascript" src="js/materialize.min.js" src="meetCute.js">
-      </script>
-      <!--Add js
-        use axios. once start then redirect them to the "/survey" 
-        AJAX.get({
-            method:GET
-            URL: localhost:3000/survey
-        })
-    -->
-    </body>
-  </html>
+<body>
+
+  <div class="container">
+
+    <div class="jumbotron">
+      <h1><i class="fa fa-facebook-square" aria-hidden="true"></i> Meet Cute</h1>
+      <hr>
+      <h2>Answer a few basic questions to find your best match!</h2>
+      <h2>You will be paired with the greatest compatibility!</h2>
+      <br>
+
+      <div>
+        <a href="/survey"><button class="btn btn-lg btn-primary"><h4><span class="fa fa-list-alt"></span> Go to Survey</h4></button></a>
+      </div>
+
+    </div>
+
+    <footer class="footer">
+      <div class="container">
+        <p><a href="/api/friends">API Matches List</a> | <a href="https://github.com/tracynle/meet_cute">GitHub Repo</a></p>
+      </div>
+    </footer>
+
+  </div>
+
+
+</body>
+
+</html>
